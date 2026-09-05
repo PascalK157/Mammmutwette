@@ -5,124 +5,146 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DIE WETTE — Saison-Tipps</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0c10;
-    --bg-alt: #0d1015;
-    --surface: #12161d;
-    --surface-2: #171c24;
-    --line: #232a35;
-    --text: #e9ecf2;
-    --muted: #7c8496;
-    --gold: #f2b705;
-    --p1: #4c9aff;
-    --p2: #ff5c5c;
-    --locked: #ff4757;
+    --bg: #06080d;
+    --surface: rgba(16, 21, 31, 0.65);
+    --surface-hover: rgba(23, 31, 46, 0.85);
+    --line: rgba(255, 255, 255, 0.07);
+    --line-active: rgba(255, 255, 255, 0.16);
+    --text: #f1f4fa;
+    --muted: #818ea3;
+    --gold: #f59e0b;
+    --p1: #38bdf8;
+    --p1-glow: rgba(56, 189, 248, 0.35);
+    --p2: #f43f5e;
+    --p2-glow: rgba(244, 63, 94, 0.35);
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
 
   body{
-    background:
-      radial-gradient(1200px 600px at 15% -10%, rgba(76,154,255,0.08), transparent 60%),
-      radial-gradient(1200px 600px at 85% 0%, rgba(255,92,92,0.07), transparent 60%),
-      var(--bg);
-    color:var(--text);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
+    background-color: var(--bg);
+    background-image: 
+      radial-gradient(1000px 600px at 0% -10%, rgba(56, 189, 248, 0.14), transparent 70%),
+      radial-gradient(1000px 600px at 100% -10%, rgba(244, 63, 94, 0.14), transparent 70%),
+      radial-gradient(circle at 50% 100%, rgba(245, 158, 11, 0.03), transparent 60%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
   }
 
-  .wrap{ max-width:1080px; margin:0 auto; padding:0 16px; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 16px; }
 
   /* ---------- HERO / SCOREBOARD ---------- */
   .hero{
-    padding:36px 0 28px;
+    padding:44px 0 26px;
     border-bottom:1px solid var(--line);
   }
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:11px;
-    letter-spacing:0.18em;
+    letter-spacing:0.2em;
     color:var(--gold);
     text-transform:uppercase;
     display:flex;
     align-items:center;
+    justify-content:center;
     gap:8px;
-    margin-bottom:18px;
+    margin-bottom:20px;
   }
   .eyebrow::before{
     content:"";
     width:7px; height:7px;
     background:var(--gold);
     border-radius:50%;
-    box-shadow:0 0 10px 2px rgba(242,183,5,0.7);
+    box-shadow:0 0 12px 2px var(--gold);
   }
 
   .board{
     display:grid;
     grid-template-columns:1fr auto 1fr;
     align-items:center;
-    background:linear-gradient(180deg, var(--surface), var(--surface-2));
+    background: linear-gradient(180deg, rgba(19, 26, 38, 0.75), rgba(11, 15, 24, 0.85));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border:1px solid var(--line);
-    border-radius:14px;
-    padding:24px 14px;
+    border-radius:18px;
+    padding:28px 18px;
     position:relative;
     overflow:hidden;
+    box-shadow: 0 24px 48px -12px rgba(0,0,0,0.8);
   }
+  
   .board::before{
     content:"";
-    position:absolute; inset:0;
-    background:repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0 1px, transparent 1px 26px);
+    position:absolute;
+    width: 250px; height: 250px;
+    top: 50%; left: -50px;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, var(--p1-glow) 0%, transparent 70%);
     pointer-events:none;
   }
-  .side{
-    text-align:center;
-    z-index:1;
+  .board::after{
+    content:"";
+    position:absolute;
+    width: 250px; height: 250px;
+    top: 50%; right: -50px;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, var(--p2-glow) 0%, transparent 70%);
+    pointer-events:none;
   }
+
+  .side{ text-align:center; z-index:1; }
   .side .name{
     font-family:'Oswald', sans-serif;
     font-weight:700;
-    font-size:clamp(24px, 6vw, 52px);
-    letter-spacing:0.02em;
+    font-size:clamp(28px, 6.5vw, 56px);
+    letter-spacing:0.04em;
     line-height:1;
     text-transform:uppercase;
   }
-  .side.p1 .name{ color:var(--p1); text-shadow:0 0 22px rgba(76,154,255,0.35); }
-  .side.p2 .name{ color:var(--p2); text-shadow:0 0 22px rgba(255,92,92,0.35); }
+  .side.p1 .name{
+    color: #fff;
+    text-shadow: 0 0 24px var(--p1-glow), 0 0 45px rgba(56,189,248,0.2);
+  }
+  .side.p2 .name{
+    color: #fff;
+    text-shadow: 0 0 24px var(--p2-glow), 0 0 45px rgba(244,63,94,0.2);
+  }
   .side .role{
-    margin-top:6px;
+    margin-top:8px;
     font-family:'JetBrains Mono', monospace;
     font-size:10px;
     color:var(--muted);
-    letter-spacing:0.12em;
+    letter-spacing:0.14em;
     text-transform:uppercase;
   }
-  .vs{
-    font-family:'Oswald', sans-serif;
-    font-size:18px;
-    color:var(--muted);
-    padding:0 12px;
-    position:relative;
-    z-index:1;
+  
+  .vs-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    color:var(--text);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    padding:6px 14px;
+    border-radius:100px;
+    letter-spacing:0.1em;
+    backdrop-filter: blur(10px);
+    z-index: 1;
   }
-  .vs::before, .vs::after{
-    content:"";
-    display:block;
-    width:1px; height:24px;
-    background:var(--line);
-    margin:0 auto 6px;
-  }
-  .vs::after{ margin:6px auto 0; }
 
   .meta{
-    margin-top:18px;
+    margin-top:20px;
     display:flex;
     justify-content:center;
     gap:16px;
@@ -131,47 +153,44 @@
     font-size:11px;
     color:var(--muted);
   }
-  .meta b{ color:var(--text); font-weight:500; }
-
-  .rule-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    background:rgba(255,71,87,0.12);
-    border:1px solid rgba(255,71,87,0.25);
-    color:var(--locked);
-    padding:4px 10px;
-    border-radius:20px;
-    font-weight:600;
+  .meta span{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: 20px;
   }
+  .meta b{ color:var(--text); font-weight:600; }
 
   /* ---------- SECTIONS ---------- */
-  section.group{
-    padding:32px 0 6px;
-  }
+  section.group{ padding:34px 0 6px; }
   .group-head{
     display:flex;
-    align-items:baseline;
+    align-items:center;
     gap:12px;
     margin-bottom:14px;
   }
   .group-head h2{
     font-family:'Oswald', sans-serif;
     font-weight:600;
-    font-size:20px;
-    letter-spacing:0.01em;
+    font-size:21px;
+    letter-spacing:0.02em;
     text-transform:uppercase;
+    color: #fff;
   }
   .group-head .count{
     font-family:'JetBrains Mono', monospace;
-    font-size:11px;
+    font-size:10px;
+    font-weight:700;
     color:var(--muted);
+    background: rgba(255,255,255,0.05);
+    padding: 2px 7px;
+    border-radius: 6px;
   }
   .group-head::after{
     content:"";
     flex:1;
     height:1px;
-    background:var(--line);
+    background:linear-gradient(90deg, var(--line), transparent);
   }
 
   .cards{
@@ -182,18 +201,33 @@
 
   .card{
     display:grid;
-    grid-template-columns: 1.1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.25fr 1fr 1fr;
     align-items:center;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:12px 16px;
-    gap:10px;
-    transition:border-color 0.15s ease, transform 0.15s ease;
+    background: linear-gradient(135deg, rgba(18, 25, 38, 0.7), rgba(12, 16, 26, 0.6));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 14px;
+    gap: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .card:hover{
-    border-color:#2c3444;
-    transform:translateY(-1px);
+    background: linear-gradient(135deg, rgba(26, 36, 54, 0.8), rgba(16, 22, 36, 0.7));
+    border-color: var(--line-active);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -6px rgba(0,0,0,0.5);
+  }
+
+  /* Abgeschlossene / Gewertete Kachel */
+  .card.settled {
+    border-color: rgba(245, 158, 11, 0.75);
+    background: linear-gradient(135deg, rgba(35, 27, 14, 0.75), rgba(16, 21, 31, 0.8));
+    box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.25), inset 0 0 14px rgba(245, 158, 11, 0.06);
+  }
+  .card.settled:hover {
+    border-color: rgba(245, 158, 11, 0.95);
+    box-shadow: 0 0 28px -2px rgba(245, 158, 11, 0.4), inset 0 0 18px rgba(245, 158, 11, 0.08);
   }
 
   .cat{
@@ -202,9 +236,9 @@
     gap:2px;
   }
   .cat .label{
-    font-family:'Inter', sans-serif;
     font-weight:600;
     font-size:13px;
+    color: #fff;
   }
   .cat .sub{
     font-family:'JetBrains Mono', monospace;
@@ -213,103 +247,132 @@
     text-transform:uppercase;
     letter-spacing:0.06em;
   }
+  .cat .time{
+    font-family:'JetBrains Mono', monospace;
+    font-size:9.5px;
+    color:rgba(129, 142, 163, 0.85);
+    letter-spacing:0.02em;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    margin-top:1px;
+  }
+
+  .actual-winner {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    padding: 2px 7px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    width: fit-content;
+  }
 
   .pick{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
-    font-weight:500;
-    padding:7px 9px;
-    border-radius:6px;
-    background:var(--surface-2);
-    border:1px solid transparent;
+    font-weight:600;
+    padding:7px 11px;
+    border-radius:8px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid transparent;
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:8px;
+    overflow:hidden;
+    transition: all 0.2s ease;
+  }
+  .pick .name-text{
     overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
   }
-  .pick.p1{ color:var(--p1); border-color:rgba(76,154,255,0.18); justify-self:start; justify-content:flex-start; width:100%; }
-  .pick.p2{ color:var(--p2); border-color:rgba(255,92,92,0.18); justify-self:end; justify-content:flex-end; width:100%; }
 
-  .banned{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-    justify-content:center;
-    background:rgba(255, 71, 87, 0.04);
-    border:1px dashed rgba(255, 71, 87, 0.25);
-    border-radius:6px;
-    padding:6px 10px;
-    font-family:'JetBrains Mono', monospace;
-    line-height:1.2;
-    text-align:right;
+  .pick.p1{ 
+    color:var(--p1); 
+    border-color:rgba(56, 189, 248, 0.16); 
+    justify-content:space-between;
+    width:100%; 
   }
-  .banned .banned-tag{
-    font-size:9px;
-    color:var(--locked);
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    font-weight:700;
-    margin-bottom:2px;
+  .card:hover .pick.p1{
+    background: rgba(56, 189, 248, 0.08);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
   }
-  .banned .banned-name{
-    font-size:11px;
-    color:var(--muted);
-    text-decoration:line-through;
-    opacity:0.85;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    max-width:100%;
+
+  .pick.p2{ 
+    color:var(--p2); 
+    border-color:rgba(244, 63, 94, 0.16); 
+    justify-content:space-between; 
+    flex-direction: row-reverse;
+    width:100%; 
+  }
+  .card:hover .pick.p2{
+    background: rgba(244, 63, 94, 0.08);
+    border-color: rgba(244, 63, 94, 0.4);
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.15);
+  }
+
+  /* Hervorhebung des richtigen Tipps */
+  .pick.winner {
+    border-color: var(--gold) !important;
+    background: rgba(245, 158, 11, 0.14) !important;
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.35) !important;
+  }
+  .pick.winner .name-text {
+    color: #fff;
+    font-weight: 700;
+  }
+  .pick.winner .badge {
+    background: rgba(245, 158, 11, 0.25) !important;
+    color: var(--gold) !important;
+    border-color: var(--gold) !important;
   }
 
   .badge{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    width:22px; height:22px;
+    min-width:24px; height:20px;
+    padding:0 4px;
     flex-shrink:0;
-    border-radius:50%;
-    background:var(--bg-alt);
-    border:1px solid var(--line);
+    border-radius:5px;
     font-family:'JetBrains Mono', monospace;
-    font-size:8.5px;
+    font-size:9px;
     font-weight:700;
   }
-  .badge.p1{ border-color:rgba(76,154,255,0.4); color:var(--p1); }
-  .badge.p2{ border-color:rgba(255,92,92,0.4); color:var(--p2); }
+  .badge.p1{ background:rgba(56,189,248,0.15); color:var(--p1); }
+  .badge.p2{ background:rgba(244,63,94,0.15); color:var(--p2); }
 
-  /* ---------- MOBILE OPTIMIERUNG ---------- */
+  /* Mobile */
   @media (max-width: 820px){
+    .board{ padding:20px 14px; }
     .card{
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-        "cat banned"
+        "cat cat"
         "p1  p2";
       gap:8px;
-      padding:12px;
+      padding:11px;
     }
-    .cat{ grid-area: cat; }
-    .banned{ 
-      grid-area: banned; 
-      align-items: flex-end; 
-      padding: 4px 8px;
-    }
-    .pick.p1{ grid-area: p1; font-size:11px; }
-    .pick.p2{ grid-area: p2; font-size:11px; }
+    .cat{ grid-area: cat; margin-bottom: 2px; }
+    .pick.p1{ grid-area: p1; font-size:11px; padding:6px 8px; }
+    .pick.p2{ grid-area: p2; font-size:11px; padding:6px 8px; flex-direction:row-reverse; }
   }
 
   footer{
-    padding:40px 0 50px;
+    padding:50px 0 60px;
     text-align:center;
     color:var(--muted);
     font-family:'JetBrains Mono', monospace;
-    font-size:10px;
-    letter-spacing:0.06em;
+    font-size:11px;
+    opacity:0.6;
   }
 </style>
 </head>
@@ -321,19 +384,19 @@
     <div class="eyebrow">Langzeitwette · Saison 2026/27</div>
     <div class="board">
       <div class="side p1">
-        <div class="name">Falke</div>
-        <div class="role">Tippgeber 1</div>
+        <div class="name">El Gasto</div>
+        <div class="role">The Flensburger Prediction Machine</div>
       </div>
-      <div class="vs">VS</div>
+      <div class="vs-badge">VS</div>
       <div class="side p2">
-        <div class="name">Wolf</div>
-        <div class="role">Tippgeber 2</div>
+        <div class="name">Pakakal</div>
+        <div class="role">The so called Beercules</div>
       </div>
     </div>
     <div class="meta">
       <span><b>65</b> Kategorien</span>
-      <span class="rule-badge">🚫 Quoten-Topfavorit gesperrt</span>
       <span>Auswertung am <b>Saisonende</b></span>
+      <span>Stand <b>04.09.2026</b></span>
     </div>
   </div>
 
@@ -342,55 +405,76 @@
     <div class="group-head"><h2>Deutscher Fußball</h2><span class="count">8</span></div>
     <div class="cards">
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">1. Bundesliga</div></div>
-        <div class="pick p1">Bayer 04 Leverkusen<span class="badge p1">B04</span></div>
-        <div class="pick p2"><span class="badge p2">BVB</span>Borussia Dortmund</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">FC Bayern München</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">1. Bundesliga</div>
+          <div class="time">21.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Bayern München mit 12 Punkten</span><span class="badge p1">FCB</span></div>
+        <div class="pick p2"><span class="name-text">Borussia Dortmund</span><span class="badge p2">BVB</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">1. Bundesliga</div></div>
-        <div class="pick p1">Serhou Guirassy<span class="badge p1">SG</span></div>
-        <div class="pick p2"><span class="badge p2">LO</span>Loïs Openda</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Harry Kane</span></div>
-      </div>
-      
-      <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">2. Bundesliga</div></div>
-        <div class="pick p1">Hamburger SV<span class="badge p1">HSV</span></div>
-        <div class="pick p2"><span class="badge p2">H96</span>Hannover 96</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">1. FC Köln</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">1. Bundesliga</div>
+          <div class="time">21.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Serhou Guirassy</span><span class="badge p2">SG</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">2. Bundesliga</div></div>
-        <div class="pick p1">Davie Selke<span class="badge p1">DS</span></div>
-        <div class="pick p2"><span class="badge p2">BT</span>Budu Zivzivadze</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Robert Glatzel</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">3. Liga</div></div>
-        <div class="pick p1">FC Ingolstadt<span class="badge p1">FCI</span></div>
-        <div class="pick p2"><span class="badge p2">SCV</span>SC Verl</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Dynamo Dresden</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">2. Bundesliga</div>
+          <div class="time">31.07.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">VFL Wolfsburg</span><span class="badge p1">VFL</span></div>
+        <div class="pick p2"><span class="name-text">Hertha BSC Berlin</span><span class="badge p2">BSC</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">3. Liga</div></div>
-        <div class="pick p1">Terrence Boyd<span class="badge p1">TB</span></div>
-        <div class="pick p2"><span class="badge p2">MK</span>Marcel Bär</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Christoph Daferner</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Pokalsieger</div><div class="sub">DFB-Pokal</div></div>
-        <div class="pick p1">Borussia Dortmund<span class="badge p1">BVB</span></div>
-        <div class="pick p2"><span class="badge p2">RBL</span>RB Leipzig</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">FC Bayern München</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">2. Bundesliga</div>
+          <div class="time">31.07.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Felix Klaus</span><span class="badge p2">FK</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">DFB-Pokal</div></div>
-        <div class="pick p1">Loïs Openda<span class="badge p1">LO</span></div>
-        <div class="pick p2"><span class="badge p2">SG</span>Serhou Guirassy</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Harry Kane</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">3. Liga</div>
+          <div class="time">31.07.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Fortuna Düsseldorf</span><span class="badge p1">DÜS</span></div>
+        <div class="pick p2"><span class="name-text">MSV Duisburg</span><span class="badge p2">MSV</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">3. Liga</div>
+          <div class="time">31.07.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Lex Tyger Lobinger</span><span class="badge p2">LTL</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Pokalsieger</div>
+          <div class="sub">DFB-Pokal</div>
+          <div class="time">14.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Bayern München</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Borussia Dortmund</span><span class="badge p2">BVB</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">DFB-Pokal</div>
+          <div class="time">14.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Serhou Guirassy</span><span class="badge p2">SG</span></div>
       </div>
     </div>
   </section>
@@ -399,108 +483,152 @@
   <section class="group">
     <div class="group-head"><h2>Große Ligen & Nationale Pokale</h2><span class="count">16</span></div>
     <div class="cards">
-      <!-- Premier League & FA Cup -->
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Premier League</div></div>
-        <div class="pick p1">Arsenal FC<span class="badge p1">ARS</span></div>
-        <div class="pick p2"><span class="badge p2">LIV</span>Liverpool FC</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Manchester City</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Premier League</div>
+          <div class="time">14.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Manchester City</span><span class="badge p1">MC</span></div>
+        <div class="pick p2"><span class="name-text">Manchester City</span><span class="badge p2">MC</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Premier League</div></div>
-        <div class="pick p1">Mohamed Salah<span class="badge p1">MS</span></div>
-        <div class="pick p2"><span class="badge p2">CP</span>Cole Palmer</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Erling Haaland</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Premier League</div>
+          <div class="time">14.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Erling Braut Haaland</span><span class="badge p2">EBH</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Pokalsieger</div><div class="sub">FA Cup</div></div>
-        <div class="pick p1">Liverpool FC<span class="badge p1">LIV</span></div>
-        <div class="pick p2"><span class="badge p2">CHE</span>Chelsea FC</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Manchester City</span></div>
+        <div class="cat">
+          <div class="label">Pokalsieger</div>
+          <div class="sub">FA Cup</div>
+          <div class="time">07.11.2026 – 15.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Liverpool</span><span class="badge p1">LIV</span></div>
+        <div class="pick p2"><span class="name-text">FC Chelsea</span><span class="badge p2">CHE</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">FA Cup</div></div>
-        <div class="pick p1">Darwin Núñez<span class="badge p1">DN</span></div>
-        <div class="pick p2"><span class="badge p2">CP</span>Cole Palmer</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Erling Haaland</span></div>
-      </div>
-
-      <!-- La Liga & Copa del Rey -->
-      <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Primera División</div></div>
-        <div class="pick p1">FC Barcelona<span class="badge p1">BAR</span></div>
-        <div class="pick p2"><span class="badge p2">ATM</span>Atlético Madrid</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Real Madrid</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Primera División</div></div>
-        <div class="pick p1">Robert Lewandowski<span class="badge p1">RL</span></div>
-        <div class="pick p2"><span class="badge p2">VJ</span>Vinícius Júnior</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Kylian Mbappé</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Pokalsieger</div><div class="sub">Copa del Rey</div></div>
-        <div class="pick p1">Atlético Madrid<span class="badge p1">ATM</span></div>
-        <div class="pick p2"><span class="badge p2">ATH</span>Athletic Club</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Real Madrid</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Copa del Rey</div></div>
-        <div class="pick p1">Antoine Griezmann<span class="badge p1">AG</span></div>
-        <div class="pick p2"><span class="badge p2">NW</span>Nico Williams</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Kylian Mbappé</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">FA Cup</div>
+          <div class="time">07.11.2026 – 15.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">João Pedro</span><span class="badge p2">JP</span></div>
       </div>
 
-      <!-- Serie A & Coppa Italia -->
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Serie A</div></div>
-        <div class="pick p1">Juventus Turin<span class="badge p1">JUV</span></div>
-        <div class="pick p2"><span class="badge p2">NAP</span>SSC Neapel</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Inter Mailand</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Primera División</div>
+          <div class="time">14.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Barcelona</span><span class="badge p1">FCB</span></div>
+        <div class="pick p2"><span class="name-text">FC Barcelona</span><span class="badge p2">FCB</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Serie A</div></div>
-        <div class="pick p1">Dušan Vlahović<span class="badge p1">DV</span></div>
-        <div class="pick p2"><span class="badge p2">MR</span>Mateo Retegui</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Lautaro Martínez</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Primera División</div>
+          <div class="time">14.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Kylian Mbappe</span><span class="badge p2">KM</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Pokalsieger</div><div class="sub">Coppa Italia</div></div>
-        <div class="pick p1">AC Mailand<span class="badge p1">ACM</span></div>
-        <div class="pick p2"><span class="badge p2">NAP</span>SSC Neapel</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Inter Mailand</span></div>
+        <div class="cat">
+          <div class="label">Pokalsieger</div>
+          <div class="sub">Copa del Rey</div>
+          <div class="time">28.10.2026 – 24.04.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Barcelona</span><span class="badge p1">FCB</span></div>
+        <div class="pick p2"><span class="name-text">FC Barcelona</span><span class="badge p2">FCB</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Coppa Italia</div></div>
-        <div class="pick p1">Rafael Leão<span class="badge p1">RL</span></div>
-        <div class="pick p2"><span class="badge p2">RLU</span>Romelu Lukaku</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Lautaro Martínez</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Copa del Rey</div>
+          <div class="time">28.10.2026 – 24.04.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Lamine Yamal</span><span class="badge p2">LY</span></div>
       </div>
 
-      <!-- Ligue 1 & Coupe de France -->
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Ligue 1</div></div>
-        <div class="pick p1">AS Monaco<span class="badge p1">ASM</span></div>
-        <div class="pick p2"><span class="badge p2">OM</span>Ol. Marseille</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Paris Saint-Germain</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Serie A</div>
+          <div class="time">22.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Inter Mailand</span><span class="badge p1">IM</span></div>
+        <div class="pick p2"><span class="name-text">Inter Mailand</span><span class="badge p2">IM</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Ligue 1</div></div>
-        <div class="pick p1">Jonathan David<span class="badge p1">JD</span></div>
-        <div class="pick p2"><span class="badge p2">MG</span>Mason Greenwood</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Bradley Barcola</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Serie A</div>
+          <div class="time">22.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Donyell Malen</span><span class="badge p2">DM</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Pokalsieger</div><div class="sub">Coupe de France</div></div>
-        <div class="pick p1">Olympique Lyon<span class="badge p1">OL</span></div>
-        <div class="pick p2"><span class="badge p2">OM</span>Ol. Marseille</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Paris Saint-Germain</span></div>
+        <div class="cat">
+          <div class="label">Pokalsieger</div>
+          <div class="sub">Coppa Italia</div>
+          <div class="time">08.08.2026 – 19.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Neapel</span><span class="badge p1">NEA</span></div>
+        <div class="pick p2"><span class="name-text">Inter Mailand</span><span class="badge p2">IM</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Coupe de France</div></div>
-        <div class="pick p1">Alexandre Lacazette<span class="badge p1">AL</span></div>
-        <div class="pick p2"><span class="badge p2">MG</span>Mason Greenwood</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Bradley Barcola</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Coppa Italia</div>
+          <div class="time">08.08.2026 – 19.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Lautaro Martinez</span><span class="badge p2">LM</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Ligue 1</div>
+          <div class="time">15.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Paris St. Germain</span><span class="badge p1">PSG</span></div>
+        <div class="pick p2"><span class="name-text">Paris St. Germain</span><span class="badge p2">PSG</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Ligue 1</div>
+          <div class="time">15.08.2026 – 22.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Ferran Torres</span><span class="badge p2">FR</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Pokalsieger</div>
+          <div class="sub">Coupe de France</div>
+          <div class="time">14.11.2026 – 08.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Olympique Lyon</span><span class="badge p1">LYO</span></div>
+        <div class="pick p2"><span class="name-text">LOSC Lille</span><span class="badge p2">LOSC</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Coupe de France</div>
+          <div class="time">14.11.2026 – 08.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Estéban Lepaul</span><span class="badge p2">EL</span></div>
       </div>
     </div>
   </section>
@@ -510,81 +638,117 @@
     <div class="group-head"><h2>Weitere Europäische Ligen</h2><span class="count">12</span></div>
     <div class="cards">
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Eredivisie</div></div>
-        <div class="pick p1">Ajax Amsterdam<span class="badge p1">AJA</span></div>
-        <div class="pick p2"><span class="badge p2">FEY</span>Feyenoord</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">PSV Eindhoven</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Eredivisie</div>
+          <div class="time">08.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">PSV Eindhoven</span><span class="badge p1">PSV</span></div>
+        <div class="pick p2"><span class="name-text">PSV Eindhoven</span><span class="badge p2">PSV</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Eredivisie</div></div>
-        <div class="pick p1">Brian Brobbey<span class="badge p1">BB</span></div>
-        <div class="pick p2"><span class="badge p2">SG</span>Santiago Gimenez</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Luuk de Jong</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Süper Lig</div></div>
-        <div class="pick p1">Fenerbahce<span class="badge p1">FEN</span></div>
-        <div class="pick p2"><span class="badge p2">BJK</span>Besiktas</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Galatasaray</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Süper Lig</div></div>
-        <div class="pick p1">Edin Džeko<span class="badge p1">ED</span></div>
-        <div class="pick p2"><span class="badge p2">CI</span>Ciro Immobile</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Victor Osimhen</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Eredivisie</div>
+          <div class="time">08.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Ricardo Pepi</span><span class="badge p2">RP</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Liga Portugal</div></div>
-        <div class="pick p1">Benfica Lissabon<span class="badge p1">SLB</span></div>
-        <div class="pick p2"><span class="badge p2">FCP</span>FC Porto</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Sporting CP</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Süper Lig</div>
+          <div class="time">08.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Trabzonspor</span><span class="badge p1">TRA</span></div>
+        <div class="pick p2"><span class="name-text">Galatasaray Istanbul</span><span class="badge p2">GI</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Liga Portugal</div></div>
-        <div class="pick p1">Vangelis Pavlidis<span class="badge p1">VP</span></div>
-        <div class="pick p2"><span class="badge p2">SE</span>Samu Omorodion</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Viktor Gyökeres</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Scottish Premiership</div></div>
-        <div class="pick p1">Rangers FC<span class="badge p1">RAN</span></div>
-        <div class="pick p2"><span class="badge p2">ABE</span>Aberdeen FC</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Celtic Glasgow</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Scottish Premiership</div></div>
-        <div class="pick p1">Cyriel Dessers<span class="badge p1">CD</span></div>
-        <div class="pick p2"><span class="badge p2">NK</span>Nicolas Kühn</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Kyogo Furuhashi</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Süper Lig</div>
+          <div class="time">08.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Victor Osimhen</span><span class="badge p2">VO</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">1. Bundesliga Österreich</div></div>
-        <div class="pick p1">Sturm Graz<span class="badge p1">STU</span></div>
-        <div class="pick p2"><span class="badge p2">RWW</span>Rapid Wien</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">RB Salzburg</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Liga Portugal</div>
+          <div class="time">08.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Benfica Lissabon</span><span class="badge p1">BL</span></div>
+        <div class="pick p2"><span class="name-text">Befinca Lissabon</span><span class="badge p2">BL</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">1. Bundesliga Österreich</div></div>
-        <div class="pick p1">Mika Biereth<span class="badge p1">MB</span></div>
-        <div class="pick p2"><span class="badge p2">DB</span>Dion Beljo</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Karim Konaté</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Liga Portugal</div>
+          <div class="time">08.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Vangelis Pavlidis</span><span class="badge p2">VP</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Meister</div><div class="sub">Super League Schweiz</div></div>
-        <div class="pick p1">FC Basel<span class="badge p1">FCB</span></div>
-        <div class="pick p2"><span class="badge p2">FCZ</span>FC Zürich</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">BSC Young Boys</span></div>
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Scottish Premiership</div>
+          <div class="time">01.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Glasgow Rangers</span><span class="badge p1">GR</span></div>
+        <div class="pick p2"><span class="name-text">Celtic Glasgow</span><span class="badge p2">CG</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Super League Schweiz</div></div>
-        <div class="pick p1">Xherdan Shaqiri<span class="badge p1">XS</span></div>
-        <div class="pick p2"><span class="badge p2">AP</span>Albian Ajeti</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Meschack Elia</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Scottish Premiership</div>
+          <div class="time">01.08.2026 – 16.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Camilo Durán</span><span class="badge p2">CD</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Bundesliga Österreich</div>
+          <div class="time">01.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Red Bull Salzburg</span><span class="badge p1">RBS</span></div>
+        <div class="pick p2"><span class="name-text">LASK</span><span class="badge p2">LASK</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Bundesliga Österreich</div>
+          <div class="time">01.08.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Samuel Adeniran</span><span class="badge p2">SA</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Meister</div>
+          <div class="sub">Super League Schweiz</div>
+          <div class="time">25.07.2026 – 24.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Basel</span><span class="badge p1">FCB</span></div>
+        <div class="pick p2"><span class="name-text">FC Basel</span><span class="badge p2">FCB</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Super League Schweiz</div>
+          <div class="time">25.07.2026 – 24.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Herba Guirassy</span><span class="badge p2">HG</span></div>
       </div>
     </div>
   </section>
@@ -594,55 +758,79 @@
     <div class="group-head"><h2>Europapokal & Nationalteams</h2><span class="count">8</span></div>
     <div class="cards">
       <div class="card">
-        <div class="cat"><div class="label">Sieger</div><div class="sub">Champions League</div></div>
-        <div class="pick p1">Real Madrid<span class="badge p1">RMA</span></div>
-        <div class="pick p2"><span class="badge p2">ARS</span>Arsenal FC</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Manchester City</span></div>
+        <div class="cat">
+          <div class="label">Sieger</div>
+          <div class="sub">Champions League</div>
+          <div class="time">15.09.2026 – 29.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Barcelona</span><span class="badge p1">FCB</span></div>
+        <div class="pick p2"><span class="name-text">FC Bayern München</span><span class="badge p2">FCB</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Champions League</div></div>
-        <div class="pick p1">Kylian Mbappé<span class="badge p1">KM</span></div>
-        <div class="pick p2"><span class="badge p2">HK</span>Harry Kane</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Erling Haaland</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Sieger</div><div class="sub">Europa League</div></div>
-        <div class="pick p1">Manchester United<span class="badge p1">MUN</span></div>
-        <div class="pick p2"><span class="badge p2">ASR</span>AS Rom</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Tottenham Hotspur</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Europa League</div></div>
-        <div class="pick p1">Rasmus Højlund<span class="badge p1">RH</span></div>
-        <div class="pick p2"><span class="badge p2">AD</span>Artem Dovbyk</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Heung-min Son</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Champions League</div>
+          <div class="time">15.09.2026 – 29.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Harry Kane</span><span class="badge p2">HK</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Sieger</div><div class="sub">Conference League</div></div>
-        <div class="pick p1">AC Florenz<span class="badge p1">ACF</span></div>
-        <div class="pick p2"><span class="badge p2">BET</span>Real Betis</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Chelsea FC</span></div>
+        <div class="cat">
+          <div class="label">Sieger</div>
+          <div class="sub">Europa League</div>
+          <div class="time">23.09.2026 – 26.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Juventus Turin</span><span class="badge p1">JUV</span></div>
+        <div class="pick p2"><span class="name-text">Juventus Turin</span><span class="badge p2">JUV</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">Conference League</div></div>
-        <div class="pick p1">Moise Kean<span class="badge p1">MK</span></div>
-        <div class="pick p2"><span class="badge p2">VR</span>Vitor Roque</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Christopher Nkunku</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Europa League</div>
+          <div class="time">23.09.2026 – 26.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Randal Kolo Muani</span><span class="badge p2">RKM</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Sieger</div><div class="sub">UEFA Nations League</div></div>
-        <div class="pick p1">Deutschland<span class="badge p1">GER</span></div>
-        <div class="pick p2"><span class="badge p2">FRA</span>Frankreich</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Spanien</span></div>
+        <div class="cat">
+          <div class="label">Sieger</div>
+          <div class="sub">Conference League</div>
+          <div class="time">01.10.2026 – 26.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Atalanta Bergamo</span><span class="badge p1">ATA</span></div>
+        <div class="pick p2"><span class="name-text">Ajax Amsterdam</span><span class="badge p2">AA</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Torschützenkönig</div><div class="sub">UEFA Nations League</div></div>
-        <div class="pick p1">Jamal Musiala<span class="badge p1">JM</span></div>
-        <div class="pick p2"><span class="badge p2">KM</span>Kylian Mbappé</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Lamine Yamal</span></div>
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">Conference League</div>
+          <div class="time">01.10.2026 – 26.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Folarin Balogun</span><span class="badge p2">FB</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Sieger</div>
+          <div class="sub">UEFA Nations League</div>
+          <div class="time">03.09.2026 – 13.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Frankreich</span><span class="badge p2">FRA</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Torschützenkönig</div>
+          <div class="sub">UEFA Nations League</div>
+          <div class="time">03.09.2026 – 13.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Kylian Mbappé</span><span class="badge p2">KM</span></div>
       </div>
     </div>
   </section>
@@ -652,55 +840,84 @@
     <div class="group-head"><h2>US Sports</h2><span class="count">8</span></div>
     <div class="cards">
       <div class="card">
-        <div class="cat"><div class="label">Champion</div><div class="sub">NFL (Super Bowl)</div></div>
-        <div class="pick p1">San Francisco 49ers<span class="badge p1">SF</span></div>
-        <div class="pick p2"><span class="badge p2">BAL</span>Baltimore Ravens</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Kansas City Chiefs</span></div>
+        <div class="cat">
+          <div class="label">Champion</div>
+          <div class="sub">NFL (Super Bowl)</div>
+          <div class="time">10.09.2026 – 14.02.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Seattle Seahawks</span><span class="badge p1">SEA</span></div>
+        <div class="pick p2"><span class="name-text">Denver Broncos</span><span class="badge p2">DEN</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">MVP</div><div class="sub">NFL Regular Season</div></div>
-        <div class="pick p1">Lamar Jackson<span class="badge p1">LJ</span></div>
-        <div class="pick p2"><span class="badge p2">JA</span>Josh Allen</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Patrick Mahomes</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Champion</div><div class="sub">NBA Finals</div></div>
-        <div class="pick p1">Oklahoma City Thunder<span class="badge p1">OKC</span></div>
-        <div class="pick p2"><span class="badge p2">DEN</span>Denver Nuggets</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Boston Celtics</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">MVP</div><div class="sub">NBA Regular Season</div></div>
-        <div class="pick p1">Shai Gilgeous-Alex.<span class="badge p1">SGA</span></div>
-        <div class="pick p2"><span class="badge p2">LD</span>Luka Dončić</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Nikola Jokić</span></div>
+        <div class="cat">
+          <div class="label">MVP</div>
+          <div class="sub">NFL Regular Season</div>
+          <div class="time">10.09.2026 – 10.01.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Drake Maye</span><span class="badge p2">DM</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Champion</div><div class="sub">NHL (Stanley Cup)</div></div>
-        <div class="pick p1">Florida Panthers<span class="badge p1">FLA</span></div>
-        <div class="pick p2"><span class="badge p2">COL</span>Colorado Avalanche</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Edmonton Oilers</span></div>
+        <div class="cat">
+          <div class="label">Champion</div>
+          <div class="sub">NBA Finals</div>
+          <div class="time">20.10.2026 – 20.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Boston Celtics</span><span class="badge p1">BOS</span></div>
+        <div class="pick p2"><span class="name-text">San Antionio Spurs</span><span class="badge p2">SAS</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">MVP</div><div class="sub">NHL (Hart Trophy)</div></div>
-        <div class="pick p1">Nathan MacKinnon<span class="badge p1">NM</span></div>
-        <div class="pick p2"><span class="badge p2">AM</span>Auston Matthews</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Connor McDavid</span></div>
+        <div class="cat">
+          <div class="label">MVP</div>
+          <div class="sub">NBA Regular Season</div>
+          <div class="time">20.10.2026 – 11.04.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx.</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Victor Wembanyama</span><span class="badge p2">VW</span></div>
+      </div>
+
+      <!-- TEST CASE: Abgeschlossenes Event mit Sieger -->
+      <!-- <div class="card settled"> -->
+        <div class="card">
+        <div class="cat">
+          <div class="label">Champion</div>
+          <div class="sub">NHL (Stanley Cup)</div>
+          <div class="time">06.10.2026 – 23.06.2027</div>
+          <!-- <div class="actual-winner">🏆 Sieger: Colorado Avalanche</div> -->
+        </div>
+        <div class="pick p1"><span class="name-text">Florida Panthers</span><span class="badge p1">FLO</span></div>
+        <div class="pick p2"><span class="name-text">Colorado Avalanche</span><span class="badge p2">COL</span>
+        </div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Champion</div><div class="sub">MLB (World Series)</div></div>
-        <div class="pick p1">New York Yankees<span class="badge p1">NYY</span></div>
-        <div class="pick p2"><span class="badge p2">PHI</span>Philadelphia Phillies</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Los Angeles Dodgers</span></div>
+        <div class="cat">
+          <div class="label">MVP</div>
+          <div class="sub">NHL (Hart Trophy)</div>
+          <div class="time">06.10.2026 – 15.04.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Nathan MacKinnon</span><span class="badge p2">NM</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Champion</div>
+          <div class="sub">MLB (World Series)</div>
+          <div class="time">01.04.2027 – 31.10.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Baltimore Orioles</span><span class="badge p1">BAL</span></div>
+        <div class="pick p2"><span class="name-text">Milwaukee Brewers</span><span class="badge p2">MIL</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">MVP</div><div class="sub">MLB (AL / NL)</div></div>
-        <div class="pick p1">Aaron Judge<span class="badge p1">AJ</span></div>
-        <div class="pick p2"><span class="badge p2">BW</span>Bobby Witt Jr.</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Shohei Ohtani</span></div>
+        <div class="cat">
+          <div class="label">MVP</div>
+          <div class="sub">MLB (AL / NL)</div>
+          <div class="time">01.04.2027 – 03.10.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">xxx</span><span class="badge p1">xxx</span></div>
+        <div class="pick p2"><span class="name-text">Junior Caminero</span><span class="badge p2">JC</span></div>
       </div>
     </div>
   </section>
@@ -710,94 +927,165 @@
     <div class="group-head"><h2>Hallen-, Einzel- & Wintersport</h2><span class="count">13</span></div>
     <div class="cards">
       <div class="card">
-        <div class="cat"><div class="label">Deutscher Meister</div><div class="sub">Handball: HBL</div></div>
-        <div class="pick p1">Füchse Berlin<span class="badge p1">FUE</span></div>
-        <div class="pick p2"><span class="badge p2">THW</span>THW Kiel</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">SC Magdeburg</span></div>
+        <div class="cat">
+          <div class="label">Deutscher Meister</div>
+          <div class="sub">Handball: HBL</div>
+          <div class="time">03.09.2026 – 06.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">SC Magdeburg</span><span class="badge p1">MAG</span></div>
+        <div class="pick p2"><span class="name-text">Füchse Berlin</span><span class="badge p2">BER</span></div>
       </div>
       <div class="card">
-        <div class="cat"><div class="label">Champions League Sieger</div><div class="sub">Handball: EHF CL</div></div>
-        <div class="pick p1">SC Magdeburg<span class="badge p1">SCM</span></div>
-        <div class="pick p2"><span class="badge p2">VES</span>Telekom Veszprém</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Barça Handball</span></div>
-      </div>
-
-      <div class="card">
-        <div class="cat"><div class="label">Deutscher Meister</div><div class="sub">Basketball: BBL</div></div>
-        <div class="pick p1">Alba Berlin<span class="badge p1">ALB</span></div>
-        <div class="pick p2"><span class="badge p2">ULM</span>Ratiopharm Ulm</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">FC Bayern Basketball</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">EuroLeague Champion</div><div class="sub">Basketball: EuroLeague</div></div>
-        <div class="pick p1">Real Madrid<span class="badge p1">RMA</span></div>
-        <div class="pick p2"><span class="badge p2">OLY</span>Olympiakos Piräus</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Panathinaikos</span></div>
+        <div class="cat">
+          <div class="label">Champions League Sieger</div>
+          <div class="sub">Handball: EHF CL</div>
+          <div class="time">16.09.2026 – 13.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Barcelona</span><span class="badge p1">BAR</span></div>
+        <div class="pick p2"><span class="name-text">One Veszprém HC</span><span class="badge p2">OVHC</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Deutscher Meister</div><div class="sub">Eishockey: DEL</div></div>
-        <div class="pick p1">EHC Red Bull München<span class="badge p1">RBM</span></div>
-        <div class="pick p2"><span class="badge p2">MAN</span>Adler Mannheim</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Eisbären Berlin</span></div>
+        <div class="cat">
+          <div class="label">Deutscher Meister</div>
+          <div class="sub">Basketball: BBL</div>
+          <div class="time">25.09.2026 – 20.06.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">FC Bayern München</span><span class="badge p1">MÜN</span></div>
+        <div class="pick p2"><span class="name-text">Bamberg Baskets</span><span class="badge p2">BAM</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">EuroLeague Champion</div>
+          <div class="sub">Basketball: EuroLeague</div>
+          <div class="time">01.10.2026 – 23.05.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Panathinaikos Athen</span><span class="badge p1">ATH</span></div>
+        <div class="pick p2"><span class="name-text">Panathinaikos Athen</span><span class="badge p2">ATH</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Sieger Herren</div><div class="sub">Tennis: Wimbledon</div></div>
-        <div class="pick p1">Carlos Alcaraz<span class="badge p1">CA</span></div>
-        <div class="pick p2"><span class="badge p2">ND</span>Novak Djokovic</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Jannik Sinner</span></div>
+        <div class="cat">
+          <div class="label">Deutscher Meister</div>
+          <div class="sub">Eishockey: DEL</div>
+          <div class="time">18.09.2026 – 30.04.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Eisbären Berlin</span><span class="badge p1">BER</span></div>
+        <div class="pick p2"><span class="name-text">Eisbären Berlin</span><span class="badge p2">BER</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Weltmeister</div><div class="sub">Darts: PDC WM</div></div>
-        <div class="pick p1">Luke Humphries<span class="badge p1">LH</span></div>
-        <div class="pick p2"><span class="badge p2">MvG</span>Michael van Gerwen</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Luke Littler</span></div>
+        <div class="cat">
+          <div class="label">Sieger Herren</div>
+          <div class="sub">Tennis: Wimbledon</div>
+          <div class="time">28.06.2027 – 11.07.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Jannik Sinner</span><span class="badge p1">JS</span></div>
+        <div class="pick p2"><span class="name-text">Alexander Zverev</span><span class="badge p2">AZ</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Gesamtweltcupsieger</div><div class="sub">Wintersport: Ski Alpin</div></div>
-        <div class="pick p1">Manuel Feller<span class="badge p1">MF</span></div>
-        <div class="pick p2"><span class="badge p2">LM</span>Loïc Meillard</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Marco Odermatt</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Gesamtweltcupsieger</div><div class="sub">Wintersport: Biathlon</div></div>
-        <div class="pick p1">Sturla Holm Lægreid<span class="badge p1">SHL</span></div>
-        <div class="pick p2"><span class="badge p2">TB</span>Tarjei Bø</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Johannes Thingnes Bø</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Gesamtsieger</div><div class="sub">Wintersport: Vierschanzentournee</div></div>
-        <div class="pick p1">Ryoyu Kobayashi<span class="badge p1">RK</span></div>
-        <div class="pick p2"><span class="badge p2">AW</span>Andreas Wellinger</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Stefan Kraft</span></div>
+        <div class="cat">
+          <div class="label">Sieger Damen</div>
+          <div class="sub">Tennis: Wimbledon</div>
+          <div class="time">28.06.2027 – 11.07.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Karolina Muchova</span><span class="badge p1">KM</span></div>
+        <div class="pick p2"><span class="name-text">Aryna Sabalenka</span><span class="badge p2">AS</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">Fahrer-Weltmeister</div><div class="sub">Motorsport: Formel 1</div></div>
-        <div class="pick p1">Lando Norris<span class="badge p1">LN</span></div>
-        <div class="pick p2"><span class="badge p2">CL</span>Charles Leclerc</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Max Verstappen</span></div>
-      </div>
-      <div class="card">
-        <div class="cat"><div class="label">Weltmeister</div><div class="sub">Motorsport: MotoGP</div></div>
-        <div class="pick p1">Jorge Martín<span class="badge p1">JM</span></div>
-        <div class="pick p2"><span class="badge p2">MM</span>Marc Márquez</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Francesco Bagnaia</span></div>
+        <div class="cat">
+          <div class="label">Weltmeister</div>
+          <div class="sub">Darts: PDC WM</div>
+          <div class="time">15.12.2026 – 03.01.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Luke Littler</span><span class="badge p1">LL</span></div>
+        <div class="pick p2"><span class="name-text">Luke Humphries</span><span class="badge p2">LH</span></div>
       </div>
 
       <div class="card">
-        <div class="cat"><div class="label">FedEx Cup Gesamtsieger</div><div class="sub">Golf: PGA Tour</div></div>
-        <div class="pick p1">Xander Schauffele<span class="badge p1">XS</span></div>
-        <div class="pick p2"><span class="badge p2">RM</span>Rory McIlroy</div>
-        <div class="banned"><span class="banned-tag">🚫 Gesperrt</span><span class="banned-name">Scottie Scheffler</span></div>
+        <div class="cat">
+          <div class="label">Gesamtweltcupsieger Herren</div>
+          <div class="sub">Wintersport: Ski Alpin</div>
+          <div class="time">24.10.2026 – 28.03.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Marco Odermatt</span><span class="badge p1">MO</span></div>
+        <div class="pick p2"><span class="name-text">Lucas Pinheiro Braathen</span><span class="badge p2">LPB</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Gesamtweltcupsieger Damen</div>
+          <div class="sub">Wintersport: Ski Alpin</div>
+          <div class="time">24.10.2026 – 28.03.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Mikaela Shiffrin</span><span class="badge p1">MS</span></div>
+        <div class="pick p2"><span class="name-text">Emma Aicher</span><span class="badge p2">EA</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Gesamtweltcupsieger Herren</div>
+          <div class="sub">Wintersport: Biathlon</div>
+          <div class="time">28.11.2026 – 21.03.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Eric Perrot</span><span class="badge p1">EP</span></div>
+        <div class="pick p2"><span class="name-text">Sturla Holm Lægreid</span><span class="badge p2">SHL</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Gesamtweltcupsieger Damen</div>
+          <div class="sub">Wintersport: Biathlon</div>
+          <div class="time">28.11.2026 – 21.03.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Lou Jeanmonnot</span><span class="badge p1">LJ</span></div>
+        <div class="pick p2"><span class="name-text">Lisa Vittozzi</span><span class="badge p2">LV</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Gesamtsieger</div>
+          <div class="sub">Wintersport: Vierschanzentournee</div>
+          <div class="time">28.12.2026 – 06.01.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Domen Prevc</span><span class="badge p1">DP</span></div>
+        <div class="pick p2"><span class="name-text">Ryōyū Kobayashi</span><span class="badge p2">RK</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">Fahrer-Weltmeister</div>
+          <div class="sub">Motorsport: Formel 1</div>
+          <div class="time">12.03.2027 – 12.12.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">George Russel</span><span class="badge p1">GR</span></div>
+        <div class="pick p2"><span class="name-text">Lando Norris</span><span class="badge p2">LN</span></div>
+      </div>
+      <div class="card">
+        <div class="cat">
+          <div class="label">Weltmeister</div>
+          <div class="sub">Motorsport: MotoGP</div>
+          <div class="time">05.03.2027 – 21.11.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Marc Marquez</span><span class="badge p1">MM</span></div>
+        <div class="pick p2"><span class="name-text">Jorge Martín</span><span class="badge p2">JM</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cat">
+          <div class="label">FedEx Cup Gesamtsieger</div>
+          <div class="sub">Golf: PGA Tour</div>
+          <div class="time">07.01.2027 – 29.08.2027</div>
+        </div>
+        <div class="pick p1"><span class="name-text">Scottie Sheffler</span><span class="badge p1">SS</span></div>
+        <div class="pick p2"><span class="name-text">Rory McIlroy</span><span class="badge p2">RM</span></div>
       </div>
     </div>
   </section>
 
-  <footer>Mockup-Daten · Quoten-Topfavoriten nach aktuellem Buchmacher-Konsens gesperrt</footer>
+  <footer>Head-to-Head Saisonwette 2026/27</footer>
 
 </div>
 
